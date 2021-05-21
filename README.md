@@ -1,5 +1,5 @@
 # SpiceFood
-<h1>Using Asp .Net Core & Entity FreameWork</h>
+<h1>Using Asp .Net Core & Entity FrameWork</h>
 <h4>Problem Definition:<h4>
 <h5>For Spice Food Lover, If you want to try deffirent kinds of foods, You can order your favorite food from your home during of this pandemic</h5>
 <hr>
