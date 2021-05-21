@@ -1,0 +1,98 @@
+﻿@using Spice.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Spice</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/StyleSheet.css" rel="stylesheet" />
+</head>
+<body class="search-background">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="Customer" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/spicy.png" />
+                    Spice
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (User.IsInRole(SD.ManagerUser))
+                        {
+                            <li class="nav-item dropdown text-white-50">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Content Mangment
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                    <a class="dropdown-item" asp-action="Index" asp-controller="Category" asp-area="Admin">
+                                        Category
+                                    </a>
+                                    <a class="dropdown-item" asp-action="Index" asp-controller="SubCategory" asp-area="Admin">
+                                        Sub Category
+                                    </a>
+                                    <a class="dropdown-item" asp-action="Index" asp-controller="MenuItem" asp-area="Admin">
+                                        Menu
+                                    </a>
+                                    <a class="dropdown-item" asp-action="Index" asp-controller="Coupon" asp-area="Admin">
+                                        Coupons
+                                    </a>
+                                    <a class="dropdown-item" asp-action="Index" asp-controller="User" asp-area="Admin">
+                                        Users
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.SessionOfShoppingCart) != null)
+                        {
+                            
+                            var count = HttpContextAccessor.HttpContext.Session.GetInt32(SD.SessionOfShoppingCart);
+                           
+                            <li class="nav-item style="color:white"">
+                                <span class="badge badge-pill badge-danger" style="float:right;margin-bottom:-10px;">@count</span> <!-- your badge -->
+                                <a class="nav-link" asp-area="Customer" asp-controller="Cart" asp-action="Index"><i class="fas fa-shopping-cart"></i> &nbsp; <span class="sr-only">(current)</span></a>
+                            </li>
+
+                        }
+                        else
+                        {
+                            <li style="color:white">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-shopping-cart"></i> &nbsp;(0)
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top pl-3 footer text-white-50" style="background-color: #343a40;">
+        <div class="container">
+            &copy; 2021 - Spice
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/4a8137dc1d.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tiny.cloud/1/6tqs31jjp5e3087ur0dsxbuiurwrpw5r9pv17gkpkee22c4v/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
